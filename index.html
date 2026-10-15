@@ -1,817 +1,429 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Литературное наследие Липецкого края</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: radial-gradient(circle at 10% 20%, #0a0f1f, #03050b);
-            font-family: 'Inter', sans-serif;
-            color: #f0f3fa;
-            line-height: 1.4;
-            scroll-behavior: smooth;
-            overflow-x: hidden;
-        }
-
-        .bg-glow {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .bg-glow::before,
-        .bg-glow::after {
-            content: "";
-            position: absolute;
-            width: 400px;
-            height: 400px;
-            border-radius: 50%;
-            filter: blur(100px);
-            opacity: 0.4;
-            animation: floatGlow 16s infinite alternate ease-in-out;
-        }
-
-        .bg-glow::before {
-            background: #ff4d8f;
-            top: -100px;
-            left: -100px;
-            animation-duration: 20s;
-        }
-
-        .bg-glow::after {
-            background: #3b82f6;
-            bottom: -100px;
-            right: -100px;
-            animation-duration: 18s;
-            animation-direction: alternate-reverse;
-        }
-
-        @keyframes floatGlow {
-            0% { transform: translate(0, 0) scale(1); opacity: 0.3; }
-            100% { transform: translate(80px, 80px) scale(1.3); opacity: 0.6; }
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 2rem 2rem 3rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .hero h1 {
-            font-family: 'Space Grotesk', monospace;
-            font-size: 3.8rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #FFE6F0, #A0E9FF, #FFB3D9);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            text-shadow: 0 0 15px rgba(255, 77, 143, 0.3);
-            margin-bottom: 0.5rem;
-            animation: fadeInDown 0.8s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-        }
-
-        .hero .sub {
-            font-size: 1.25rem;
-            font-weight: 400;
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(8px);
-            display: inline-block;
-            padding: 0.5rem 1.8rem;
-            border-radius: 60px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            margin-top: 0.5rem;
-        }
-
-        .quote-machine {
-            background: rgba(20, 25, 45, 0.6);
-            backdrop-filter: blur(16px);
-            border-radius: 48px;
-            padding: 1.8rem 2rem;
-            margin-bottom: 4rem;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.5);
-            text-align: center;
-        }
-
-        .quote-icon {
-            font-size: 2.5rem;
-            color: #ffb347;
-            margin-bottom: 0.5rem;
-        }
-
-        .quote-text {
-            font-size: 1.5rem;
-            font-weight: 500;
-            line-height: 1.4;
-            max-width: 800px;
-            margin: 0.5rem auto;
-            font-family: 'Space Grotesk', monospace;
-        }
-
-        .quote-author {
-            margin-top: 0.8rem;
-            font-weight: 500;
-            color: #b9c7ff;
-        }
-
-        .quote-btn {
-            background: linear-gradient(95deg, #ff4d8f, #b93bff);
-            border: none;
-            padding: 0.7rem 1.8rem;
-            font-size: 1rem;
-            font-weight: 600;
-            border-radius: 40px;
-            color: white;
-            cursor: pointer;
-            transition: 0.25s;
-            margin-top: 1rem;
-            box-shadow: 0 0 12px rgba(255, 77, 143, 0.5);
-        }
-
-        .quote-btn:hover {
-            transform: scale(1.03);
-            box-shadow: 0 0 20px #ff4d8f;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0 2rem;
-        }
-
-        .writer-card {
-            background: rgba(20, 25, 45, 0.55);
-            backdrop-filter: blur(12px);
-            border-radius: 2rem;
-            padding: 1.5rem 1.5rem 2rem;
-            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 20px 30px -15px rgba(0, 0, 0, 0.3);
-            opacity: 0;
-            transform: translateY(30px);
-            animation: cardReveal 0.6s forwards;
-            animation-delay: calc(var(--order, 0) * 0.1s);
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .writer-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            background: rgba(30, 36, 60, 0.7);
-            border-color: rgba(255, 130, 200, 0.5);
-            box-shadow: 0 25px 40px -12px #ff4d8f40;
-        }
-
-        .writer-card::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, #ff4d8f, #3b82f6, #ffb347);
-            transform: scaleX(0);
-            transition: transform 0.5s ease;
-            transform-origin: left;
-        }
-
-        .writer-card:hover::after {
-            transform: scaleX(1);
-        }
-
-        .avatar {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            font-weight: 800;
-            font-family: 'Space Grotesk', monospace;
-            color: white;
-            margin-bottom: 1.2rem;
-            box-shadow: 0 12px 18px -6px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255,255,255,0.1);
-            transition: 0.2s;
-            border: 2px solid rgba(255,255,240,0.3);
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
-        }
-
-        .writer-card:hover .avatar {
-            transform: scale(1.02);
-            box-shadow: 0 0 0 3px #ff7eb3;
-        }
-
-        .writer-name {
-            font-size: 1.85rem;
-            font-weight: 700;
-            background: linear-gradient(120deg, #fff, #ffd6e8);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            margin-bottom: 0.25rem;
-        }
-
-        .writer-years {
-            font-size: 1rem;
-            color: #b2c2ff;
-            margin-bottom: 0.7rem;
-            display: flex;
-            gap: 0.8rem;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .badge {
-            background: #ff3366;
-            border-radius: 30px;
-            padding: 0.2rem 0.8rem;
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            backdrop-filter: blur(4px);
-            display: inline-block;
-            color: white;
-            box-shadow: 0 0 6px #ff4d8f;
-        }
-
-        .desc {
-            font-size: 0.9rem;
-            line-height: 1.45;
-            color: #e0eaff;
-            margin: 0.8rem 0 1.2rem;
-            flex-grow: 1;
-        }
-
-        .card-buttons {
-            display: flex;
-            gap: 1rem;
-            margin-top: 0.5rem;
-        }
-
-        .fact-btn, .bio-btn {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.25);
-            padding: 0.5rem 1rem;
-            border-radius: 2rem;
-            font-size: 0.85rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: 0.2s;
-            color: #f0f3ff;
-            backdrop-filter: blur(5px);
-        }
-
-        .fact-btn i, .bio-btn i {
-            margin-right: 6px;
-        }
-
-        .fact-btn:hover {
-            background: #ff4d8fcc;
-            border-color: #ffb3d9;
-            transform: scale(0.97);
-        }
-
-        .bio-btn:hover {
-            background: #3b82f6cc;
-            border-color: #a0e9ff;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(12px);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: rgba(12, 18, 32, 0.98);
-            backdrop-filter: blur(20px);
-            border-radius: 2rem;
-            max-width: 850px;
-            width: 90%;
-            max-height: 85vh;
-            overflow-y: auto;
-            padding: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.5);
-            position: relative;
-            animation: slideUp 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 1rem;
-            right: 1.5rem;
-            font-size: 2rem;
-            cursor: pointer;
-            color: #ff9fbf;
-            background: none;
-            border: none;
-        }
-
-        .modal-close:hover {
-            color: #ff4d8f;
-            transform: scale(1.1);
-        }
-
-        .modal-title {
-            font-size: 2.2rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #FFE6F0, #FFB3D9);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            margin-bottom: 0.25rem;
-        }
-
-        .modal-sub {
-            font-size: 1rem;
-            color: #b9c7ff;
-            margin-bottom: 1.5rem;
-            border-left: 3px solid #ff4d8f;
-            padding-left: 1rem;
-        }
-
-        .modal-section {
-            margin-bottom: 1.5rem;
-        }
-
-        .modal-section h3 {
-            font-size: 1.4rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            color: #ffb7d0;
-        }
-
-        .modal-section p, .modal-section ul {
-            font-size: 1rem;
-            line-height: 1.5;
-            margin-left: 1rem;
-        }
-
-        .modal-section ul {
-            list-style-type: none;
-        }
-
-        .modal-section li {
-            margin: 0.4rem 0;
-            display: flex;
-            align-items: baseline;
-            gap: 0.5rem;
-        }
-
-        .modal-section li i {
-            color: #ff6b9d;
-            width: 1.5rem;
-        }
-
-        .footer {
-            margin-top: 4rem;
-            text-align: center;
-            font-size: 0.85rem;
-            padding: 1.5rem;
-            border-top: 1px dashed rgba(255,255,255,0.2);
-            color: #9aa7e0;
-        }
-
-        .footer i {
-            color: #ff6b9d;
-        }
-
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-35px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes cardReveal {
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(40px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        @media (max-width: 760px) {
-            .container { padding: 1rem 1rem 2rem; }
-            .hero h1 { font-size: 2.4rem; }
-            .quote-text { font-size: 1.2rem; }
-            .grid { gap: 1.2rem; }
-            .writer-name { font-size: 1.5rem; }
-            .modal-content { padding: 1.5rem; }
-            .modal-title { font-size: 1.8rem; }
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Писатели и места Липецкого края — литературный справочник</title>
+<meta name="description" content="Справочный сайт о писателях, связанных с Липецким краем, и о сохранившихся памятных местах: Бунин, Замятин, Пришвин, Толстой, Лермонтов, Левитов, Шубин. Даты, адреса, источники.">
+<meta name="theme-color" content="#fbfaf7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#14151a" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/style.css">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Писатели и места Липецкого края">
+<meta property="og:description" content="Литературное краеведение Липецкой области: персоналии, памятные места, хронология, источники.">
+<meta property="og:locale" content="ru_RU">
 </head>
 <body>
-<div class="bg-glow"></div>
 
-<div class="container">
-    <div class="hero">
-        <h1>📖 ЛИТЕРАТУРНОЕ НАСЛЕДИЕ <br> ЛИПЕЦКОГО КРАЯ</h1>
-        <div class="sub">⭐ Писатели, чьи судьбы связаны с Липецком и областью ⭐</div>
+<a class="skip-link" href="#main">К содержанию</a>
+
+<header class="masthead">
+  <div class="wrap masthead-inner">
+    <a class="wordmark" href="index.html">Писатели и места<span>Липецкий край · литературный справочник</span></a>
+    <nav class="nav" aria-label="Разделы сайта">
+      <ul>
+        <li><a href="index.html" aria-current="page">Главная</a></li>
+        <li><a href="avtory.html">Авторы</a></li>
+        <li><a href="mesta.html">Места</a></li>
+        <li><a href="hronologiya.html">Хронология</a></li>
+        <li><a href="segodnya.html">Сегодня</a></li>
+        <li><a href="istochniki.html">Источники</a></li>
+        <li><a href="o-proekte.html">О проекте</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<div class="wrap">
+
+  <div class="hero">
+    <p class="kicker">Литературное краеведение</p>
+    <h1>Писатели и места Липецкого края</h1>
+    <p class="standfirst">Липецкая область образована 6 января 1954 года из районов соседних губерний и областей,
+      но литературная история этих земель заметно старше: Елец упомянут в летописи под 1146 годом,
+      а имена, связанные с краем, тянутся от поэтессы Анны Буниной (1774) до липецких поэтов,
+      печатающихся сегодня в журнале «Петровский мост».</p>
+    <p class="byline">36 имён · 23 памятных места · хронология из 86 дат с 1146 по 2027 год ·
+      сведения сверены с Литературной картой Липецкой области, музейными сайтами и краеведческими изданиями</p>
+  </div>
+
+  <p class="note">Даты до февраля 1918 года приведены по старому и новому стилю. Там, где источники
+    расходятся, обе версии оставлены в тексте записи и не сглажены.</p>
+
+  <!-- 1. КРАЙ В ДАТАХ -->
+  <section id="daty" aria-labelledby="daty-title">
+    <h2 class="section-title" id="daty-title"><span class="num">1</span>Край в датах</h2>
+
+    <table class="facts">
+      <caption>Девять дат, без которых литературная карта края не складывается</caption>
+      <tbody>
+        <tr>
+          <th scope="row">1146</th>
+          <td>Первое летописное упоминание Ельца в Никоновской летописи: через город проезжал князь Святослав Ольгович.
+            Елец — старейший из сохранившихся городов области.<sup><a href="istochniki.html#s39">39</a></sup></td>
+        </tr>
+        <tr>
+          <th scope="row">1613—1647</th>
+          <td>На Белгородской засечной черте поставлены крепости Лебедянь (1613), Добрый (1615), Раненбург (1638),
+            Усмань (1645), Сокольск (1647) — будущие уездные города, давшие краю писателей.<sup><a href="istochniki.html#s39">39</a></sup></td>
+        </tr>
+        <tr>
+          <th scope="row">1703</th>
+          <td>Начало строительства Липских железоделательных заводов на реке Липовке; этот год принят считать
+            годом основания Липецка.<sup><a href="istochniki.html#s43">43</a></sup></td>
+        </tr>
+        <tr>
+          <th scope="row">1779</th>
+          <td>16 сентября указом Екатерины II слобода Липские Заводы стала городом Липецком, центром уезда
+            Тамбовского наместничества.<sup><a href="istochniki.html#s43">43</a></sup></td>
+        </tr>
+        <tr>
+          <th scope="row">1805</th>
+          <td>25 апреля (8 мая) Александр I подписал указ о курорте «Липецкие минеральные воды».
+            Город стал курортным, и сюда поехали лечиться в том числе литераторы.<sup><a href="istochniki.html#s40">40</a></sup></td>
+        </tr>
+        <tr>
+          <th scope="row">1871</th>
+          <td>Открыта Елецкая классическая мужская гимназия. В её здании учились Бунин и Пришвин
+            и преподавал Розанов.<sup><a href="istochniki.html#s23">23</a></sup></td>
+        </tr>
+        <tr>
+          <th scope="row">1910</th>
+          <td>7 (20) ноября на станции Астапово умер Лев Толстой. В 1918 году станцию и посёлок переименовали
+            в Лев Толстой.<sup><a href="istochniki.html#s9">9</a></sup></td>
+        </tr>
+        <tr>
+          <th scope="row">1954</th>
+          <td>6 января образована Липецкая область; Липецк стал областным центром, а область получила
+            Елец, Лебедянь, Данков, Задонск, Усмань и Чаплыгин.<sup><a href="istochniki.html#s42">42</a></sup></td>
+        </tr>
+        <tr>
+          <th scope="row">2008—2009</th>
+          <td>Вышел первый номер липецкого литературного журнала «Петровский мост» (2008);
+            в Лебедяни открыт дом-музей Е. И. Замятина (2009).<sup><a href="istochniki.html#s44">44</a></sup><sup><a href="istochniki.html#s10">10</a></sup></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p><a href="hronologiya.html">Полная хронология — 86 датированных событий с 1146 по 2027 год →</a></p>
+  </section>
+
+  <!-- 2. ГЛАВНЫЕ ИМЕНА -->
+  <section id="imena" aria-labelledby="imena-title">
+    <h2 class="section-title" id="imena-title"><span class="num">2</span>Главные имена</h2>
+    <p class="note">Двенадцать записей из тридцати шести. Полные биографические справки, списки произведений
+      и ссылки на источники — в разделе «Авторы».</p>
+
+    <ul class="roll">
+      <li>
+        <a class="who" href="avtory.html#bunin">Иван Бунин</a>
+        <span class="dates">1870—1953 · Елец, Бутырки, Озёрки</span>
+        <p>Родился в Воронеже, но детство и отрочество прошли в имениях Елецкого уезда. Учился в Елецкой
+          гимназии в 1881—1886 годах. Нобелевская премия 1933 года.</p>
+      </li>
+      <li>
+        <a class="who" href="avtory.html#zamjatin">Евгений Замятин</a>
+        <span class="dates">1884—1937 · Лебедян</span>
+        <p>Родился в Лебедяни в семье священника и дочери священника; отец держал первый в городе книжный
+          магазин. Автор романа «Мы» и повести «Уездное».</p>
+      </li>
+      <li>
+        <a class="who" href="avtory.html#prishvin">Михаил Пришвин</a>
+        <span class="dates">1873—1954 · Хрущёво-Лёвшино</span>
+        <p>Родился в имении деда, елецкого купца первой гильдии. Из Елецкой гимназии отчислен в 1889 году
+          после конфликта с учителем географии В. В. Розановым.</p>
+      </li>
+      <li>
+        <a class="who" href="avtory.html#tolstoj">Лев Толстой</a>
+        <span class="dates">1828—1910 · Астапово</span>
+        <p>Последние семь дней жизни провёл в доме начальника станции Астапово И. И. Озолина.
+          Сегодня это филиал Государственного музея Л. Н. Толстого.</p>
+      </li>
+      <li>
+        <a class="who" href="avtory.html#lermontov">Михаил Лермонтов</a>
+        <span class="dates">1814—1841 · Кропотово, Васильевское</span>
+        <p>Родовое имение отца поэта, Кропотовка, стояло рядом с Васильевским — имением Арсеньевых.
+          Ныне село Кропотово-Лермонтово Становлянского округа.</p>
+      </li>
+      <li>
+        <a class="who" href="avtory.html#bunina">Анна Бунина</a>
+        <span class="dates">1774—1829 · Урусово</span>
+        <p>Первая русская поэтесса, жившая литературным трудом; современники называли её «русской Сафо».
+          Родилась в селе Урусово, ныне Чаплыгинский округ, лечилась на липецких водах.</p>
+      </li>
+      <li>
+        <a class="who" href="avtory.html#marko-vovchok">Марко Вовчок</a>
+        <span class="dates">1833—1907 · Екатерининское под Ельцом</span>
+        <p>Мария Вилинская-Маркович, классик украинской и русской литературы, родилась в имении
+          Екатерининское Елецкого уезда. Троюродная сестра Д. И. Писарева.</p>
+      </li>
+      <li>
+        <a class="who" href="avtory.html#levitov">Александр Левитов</a>
+        <span class="dates">1835—1877 · Доброе</span>
+        <p>Сын дьячка из села Доброе, писатель-«народник». В его очерках узнаются Доброе, Данков,
+          Лебедянь, Елец и Раненбург. С 2020 года в области вручают премию его имени.</p>
+      </li>
+      <li>
+        <a class="who" href="avtory.html#pisarev">Дмитрий Писарев</a>
+        <span class="dates">1840—1868 · Знаменское</span>
+        <p>Критик и публицист, родился в родовом селе Знаменское Елецкого уезда. Ведущий автор
+          журнала «Русское слово», четыре года провёл в Петропавловской крепости.</p>
+      </li>
+      <li>
+        <a class="who" href="avtory.html#shubin">Павел Шубин</a>
+        <span class="dates">1914—1951 · Чернава</span>
+        <p>Фронтовой поэт из села Чернава, автор «Волховской застольной» и стихотворения
+          «Санная дорога до Чернавска…». Его именем назван бульвар в Липецке.</p>
+      </li>
+      <li>
+        <a class="who" href="avtory.html#lipetskij">Алексей Липецкий</a>
+        <span class="dates">1887—1942 · Липецк</span>
+        <p>Настоящая фамилия — Каменский; псевдоним взял по названию родного города. Единственный
+          крупный литератор, родившийся именно в Липецке.</p>
+      </li>
+      <li>
+        <a class="who" href="avtory.html#zadonskij">Николай Задонский</a>
+        <span class="dates">1900—1974 · Задонск</span>
+        <p>Настоящая фамилия — Коптев, сын задонского городского головы. Автор исторических хроник
+          «Денис Давыдов» и «Смутная пора», похоронен в Задонске.</p>
+      </li>
+    </ul>
+
+    <p><a href="avtory.html">Все авторы — 36 записей, с фильтром по группам →</a></p>
+  </section>
+
+  <!-- 3. ЕЛЕЦКАЯ ГИМНАЗИЯ -->
+  <section id="gimnaziya" aria-labelledby="gimnaziya-title">
+    <h2 class="section-title" id="gimnaziya-title"><span class="num">3</span>Елецкая гимназия: три судьбы в одном здании</h2>
+
+    <p>Елецкая классическая мужская гимназия открылась в 1871 году. За восемнадцать лет через неё прошли
+      трое людей, чьи имена сегодня стоят рядом в любой литературной справке о крае, — и все трое
+      связаны с одним зданием.<sup><a href="istochniki.html#s23">23</a></sup></p>
+
+    <p>Иван Бунин поступил в гимназию в 1881 году и учился до 1886-го: курса он не окончил и уехал
+      к родителям в Озёрки. В 1883 году в первый класс той же гимназии приняли Михаила Пришвина —
+      три года они были учениками одного учебного заведения, Бунин старшеклассником, Пришвин
+      младшим.<sup><a href="istochniki.html#s21">21</a></sup><sup><a href="istochniki.html#s37">37</a></sup></p>
+
+    <p>В августе 1887 года в гимназию пришёл новый преподаватель истории и географии — Василий Розанов,
+      тридцати одного года, приехавший в Елец, по его собственному признанию, «близким к отчаянию»
+      после разрыва с Аполлинарией Сусловой. Именно он 20 марта 1889 года добился отчисления
+      Пришвина — постановление педагогического совета сформулировано сухо: «за нарушение дисциплины,
+      выразившееся в угрозах и грубости учителю в присутствии класса».<sup><a href="istochniki.html#s19">19</a></sup><sup><a href="istochniki.html#s21">21</a></sup></p>
+
+    <p>Елецкие четыре года оказались для Розанова началом литературной биографии: здесь написаны
+      «Легенда о Великом инквизиторе Ф. М. Достоевского», «Место христианства в истории»,
+      «Теория исторического прогресса и упадка», здесь вместе с П. Д. Первовым сделан первый
+      в России перевод «Метафизики» Аристотеля с греческого. 5 мая 1891 года он тайно обвенчался
+      с Варварой Бутягиной, вдовой учителя той же гимназии, в домовой церкви при приюте для
+      мещанских девочек — сегодня это территория елецкого Детского парка. В Елец Розанов
+      больше не возвращался.<sup><a href="istochniki.html#s20">20</a></sup></p>
+
+    <p>Здание гимназии сохранилось. Сейчас в нём работает средняя школа № 1, которой присвоено имя
+      М. М. Пришвина — того самого гимназиста, отчисленного Розановым; в 2006 году на фасаде
+      установлена мемориальная доска самому Розанову.<sup><a href="istochniki.html#s21">21</a></sup><sup><a href="istochniki.html#s19">19</a></sup></p>
+
+    <p><a href="avtory.html#rozanov">Запись о В. В. Розанове →</a> ·
+      <a href="mesta.html#elets">Памятные места Ельца →</a></p>
+  </section>
+
+  <!-- 4. ГЕОГРАФИЯ -->
+  <section id="geografiya" aria-labelledby="geografiya-title">
+    <h2 class="section-title" id="geografiya-title"><span class="num">4</span>Литературная география</h2>
+
+    <table>
+      <caption>Кто и откуда: указатель по городам и округам области</caption>
+      <thead>
+        <tr>
+          <th scope="col">Город, округ</th>
+          <th scope="col">Имена</th>
+          <th scope="col">Что сохранилось</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Липецк</th>
+          <td>Алексей Липецкий (Каменский); Анна Бунина и Глеб Успенский — лечились на водах</td>
+          <td>Дом А. В. Липецкого в Комсомольском переулке, Нижний парк и курорт «Липецкие минеральные воды»</td>
+        </tr>
+        <tr>
+          <th scope="row">Елец и Елецкий округ</th>
+          <td>Иван и Юлий Бунины, Михаил Пришвин, Марко Вовчок, Василий Розанов, Николай Задонский</td>
+          <td>Здание гимназии (школа № 1 им. М. М. Пришвина), мемориальная доска В. В. Розанову</td>
+        </tr>
+        <tr>
+          <th scope="row">Становлянский округ</th>
+          <td>Иван Бунин, Михаил Лермонтов, Михаил Пришвин, Александр Пушкин (Пальна-Михайловка)</td>
+          <td>Дом-музей И. А. Бунина в Озёрках, памятный знак в Бутырках, усадьба Стаховичей, Кропотово-Лермонтово</td>
+        </tr>
+        <tr>
+          <th scope="row">Лебедянь и округ</th>
+          <td>Евгений Замятин, Александр Левитов (училище)</td>
+          <td>Дом-музей Е. И. Замятина, краеведческий музей им. П. Н. Черменского</td>
+        </tr>
+        <tr>
+          <th scope="row">Задонск и округ</th>
+          <td>Николай Задонский, Александр Эртель (Ксизово)</td>
+          <td>Дом Н. А. Задонского на улице Коммуны, 23; районная библиотека его имени</td>
+        </tr>
+        <tr>
+          <th scope="row">Чаплыгинский округ</th>
+          <td>Анна Бунина (Урусово)</td>
+          <td>Места, связанные с именем поэтессы; рядом — усадьба Рязанка Семеновых-Тян-Шанских</td>
+        </tr>
+        <tr>
+          <th scope="row">Усмань и округ</th>
+          <td>Леонид Завадовский, Павел Кустов, Борис Котов, Сергей Терпигорев, Александр Эртель</td>
+          <td>Дом Л. Н. Завадовского на улице Радищева</td>
+        </tr>
+        <tr>
+          <th scope="row">Добринский округ</th>
+          <td>Сергей Терпигорев (Никольское)</td>
+          <td>Места, связанные с автором «Оскудения»</td>
+        </tr>
+        <tr>
+          <th scope="row">Добровский округ</th>
+          <td>Александр Левитов (Доброе); Мария Пушкина (Коренёвщино)</td>
+          <td>Школа и улица имени А. И. Левитова в Добром; композиция «Лист и перо» в Коренёвщине</td>
+        </tr>
+        <tr>
+          <th scope="row">Измалковский округ</th>
+          <td>Павел Шубин (Чернава); Иван Бунин (Васильевка — имение сестры)</td>
+          <td>Музей П. Н. Шубина в Чернаве, памятник поэту</td>
+        </tr>
+        <tr>
+          <th scope="row">Лев-Толстовский район</th>
+          <td>Лев Толстой (Астапово)</td>
+          <td>Мемориальный музей «Астапово», исторический вокзал, амбулатория, Троицкая церковь-школа</td>
+        </tr>
+        <tr>
+          <th scope="row">Грязинский округ</th>
+          <td>Пётр Бартенев (Королёвщино), Борис Шальнев (Средняя Лукавка), Александра Тамбовская (Ярлуково)</td>
+          <td>Места рождения; село Бартеневка</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 5. КУДА ЕХАТЬ -->
+  <section id="kuda-ehat" aria-labelledby="kuda-ehat-title">
+    <h2 class="section-title" id="kuda-ehat-title"><span class="num">5</span>Куда ехать</h2>
+    <p class="note">Адреса и режим работы приведены по музейным сайтам и краеведческим порталам;
+      перед поездкой их стоит перепроверить — данные меняются.</p>
+
+    <div class="place" id="astapovo-brief">
+      <div>
+        <h3>Мемориальный музей памяти Л. Н. Толстого «Астапово»</h3>
+        <p class="where">Лев-Толстовский район, п. Лев Толстой, ул. Центральная, 8</p>
+        <p>Дом начальника станции И. И. Озолина, где Толстой провёл последние семь дней и умер
+          7 (20) ноября 1910 года. Филиал Государственного музея Л. Н. Толстого, официально открыт
+          в декабре 1946 года.<sup><a href="istochniki.html#s8">8</a></sup></p>
+        <p class="status">Закрыт на ремонтно-реставрационные работы с 25 мая 2026 года по 31 августа 2027 года.<sup><a href="istochniki.html#s8">8</a></sup></p>
+      </div>
     </div>
 
-    <div class="quote-machine">
-        <div class="quote-icon"><i class="fas fa-feather-alt"></i> <i class="fas fa-quote-right"></i></div>
-        <div class="quote-text" id="dynamicQuote">«Липецкая земля всегда рождала таланты, а её литература — это летопись народной души.»</div>
-        <div class="quote-author" id="quoteAuthor">— Из литературного альманаха</div>
-        <button class="quote-btn" id="newQuoteBtn"><i class="fas fa-sync-alt"></i> Вдохновение</button>
+    <div class="place" id="zamyatin-brief">
+      <div>
+        <h3>Дом-музей Е. И. Замятина</h3>
+        <p class="where">Лебедянь, ул. Ситникова, 14</p>
+        <p>Дом деда писателя по матери, священника Покровской церкви Александра Платонова. Открыт
+          8 октября 2009 года к 125-летию Замятина; филиал Лебедянского краеведческого музея
+          им. П. Н. Черменского, во дворе — бронзовый бюст писателя.<sup><a href="istochniki.html#s10">10</a></sup></p>
+        <p class="status">Среда — суббота, 10:00—15:00, экскурсии по предварительной записи: +7 (47466) 5-20-03.<sup><a href="istochniki.html#s11">11</a></sup></p>
+      </div>
     </div>
 
-    <div class="grid" id="writersGrid"></div>
-
-    <div class="footer">
-        <i class="fas fa-book-open"></i> Литературный гид • Липецк вдохновляет • Читайте и помните <i class="fas fa-heart" style="color:#ff6b9d;"></i>
-        <br><span>#ЛипецкаяЛитература #ПисателиЗемлиЛипецкой</span>
+    <div class="place" id="bunin-brief">
+      <div>
+        <h3>Дом-музей И. А. Бунина в Озёрках</h3>
+        <p class="where">Становлянский округ, д. Озёрки</p>
+        <p>Усадьба восстановлена по остаткам фундамента: первый камень заложили в 1990 году, дом
+          отстроили в 2003-м. На месте бунинской «заветной ели» посажена молодая ель, восстановлены
+          яблоневый сад и сирень у балкона.<sup><a href="istochniki.html#s6">6</a></sup></p>
+        <p class="status">С 2015 года осенью проходит фестиваль «Бунинские Озёрки».<sup><a href="istochniki.html#s6">6</a></sup></p>
+      </div>
     </div>
+
+    <div class="place" id="elets-brief">
+      <div>
+        <h3>Здание Елецкой гимназии — школа № 1 им. М. М. Пришвина</h3>
+        <p class="where">Елец</p>
+        <p>Гимназия основана в 1871 году. Здесь учились Иван Бунин и Михаил Пришвин, преподавал
+          Василий Розанов; в 2006 году на здании установлена мемориальная доска Розанову.<sup><a href="istochniki.html#s23">23</a></sup><sup><a href="istochniki.html#s19">19</a></sup></p>
+      </div>
+    </div>
+
+    <div class="place" id="palna-brief">
+      <div>
+        <h3>Усадьба Стаховичей в Пальне-Михайловке</h3>
+        <p class="where">Становлянский округ, с. Пальна-Михайловка</p>
+        <p>Усадебный ансамбль федерального значения: дворец в стиле «русский ампир», церковь-усыпальница,
+          дом актёра, английский парк. По преданию, в 1829 году здесь бывал Пушкин; в парке рос дуб,
+          который считали посаженным поэтом.<sup><a href="istochniki.html#s13">13</a></sup><sup><a href="istochniki.html#s14">14</a></sup></p>
+        <p class="status">7 мая 2000 года у здания школы открыт памятник А. С. Пушкину.<sup><a href="istochniki.html#s50">50</a></sup></p>
+      </div>
+    </div>
+
+    <p><a href="mesta.html">Все памятные места — 23 адреса с описаниями →</a></p>
+  </section>
+
+  <!-- 6. РАЗДЕЛЫ -->
+  <section id="razdely" aria-labelledby="razdely-title">
+    <h2 class="section-title" id="razdely-title"><span class="num">6</span>Разделы сайта</h2>
+    <div class="next">
+      <a href="avtory.html">
+        <span class="t">Авторы</span>
+        <span class="d">36 биографических справок в четырёх группах: уроженцы края, детство и юность здесь,
+          приезжие и те, кто пишет сейчас.</span>
+      </a>
+      <a href="mesta.html">
+        <span class="t">Места</span>
+        <span class="d">23 адреса: музеи, усадьбы, памятные знаки и здания — с охранным статусом
+          и текущим состоянием.</span>
+      </a>
+      <a href="hronologiya.html">
+        <span class="t">Хронология</span>
+        <span class="d">86 датированных событий: от летописного Ельца до премий и фестивалей
+          2020-х годов.</span>
+      </a>
+      <a href="segodnya.html">
+        <span class="t">Сегодня</span>
+        <span class="d">Журнал «Петровский мост», антологии, премии, писательские организации
+          и библиотечные проекты.</span>
+      </a>
+      <a href="istochniki.html">
+        <span class="t">Источники</span>
+        <span class="d">51 название, на которое ссылаются записи: музеи, библиотеки, энциклопедии,
+          краеведческие порталы.</span>
+      </a>
+      <a href="o-proekte.html">
+        <span class="t">О проекте</span>
+        <span class="d">Как устроен сайт, по каким правилам отобраны факты и что делать,
+          если найдена ошибка.</span>
+      </a>
+    </div>
+  </section>
+
 </div>
+</main>
 
-<div id="authorModal" class="modal">
-    <div class="modal-content">
-        <button class="modal-close" id="closeModalBtn">&times;</button>
-        <div id="modalDynamic"></div>
+<footer class="colophon">
+  <div class="wrap">
+    <div>
+      <p>«Писатели и места Липецкого края» — справочный сайт. Каждая запись ссылается на источник;
+        расхождения между источниками приведены явно, а не сглажены.</p>
+      <p>Цитаты без подтверждённой атрибуции на сайте не публикуются.</p>
     </div>
-</div>
+    <div class="stamp">
+      <p>Обновлено: <span data-revised="15 октября 2026">15 октября 2026</span></p>
+      <p>Репозиторий: <a href="https://github.com/Luxius-developer/Lipetsk">Luxius-developer/Lipetsk</a></p>
+      <p>Без внешних зависимостей: системные шрифты, скрипты необязательны.</p>
+    </div>
+  </div>
+</footer>
 
-<script>
-    // Данные писателей с прямыми ссылками на портреты (где есть)
-    const writersData = [
-        {
-            name: "Иван Бунин",
-            years: "1870–1953",
-            badgeText: "Нобелевский лауреат",
-            desc: "Первый русский нобелевский лауреат. Детство и юность прошли на Елецкой земле.",
-            initials: "ИБ",
-            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/7/7b/Ivan_Bunin_1928.jpg",
-            gradient: "linear-gradient(145deg, #8b5a2b, #4a2a1a)",
-            fact: "📜 В 1933 году получил Нобелевскую премию. Имение в Озёрках (Елецкий уезд) вдохновило на «Жизнь Арсеньева».",
-            quote: "«Наша память хранит всё, что мы пережили...»",
-            fullBio: {
-                childhood: "Родился в Воронеже, но с трёх лет жил в родовом имении на хуторе Бутырки (ныне Липецкая область). Учился в Елецкой гимназии.",
-                creativity: "Классик русской литературы, мастер тонкого психологизма. Основные темы: усадебная жизнь, любовь, природа, ностальгия по России. Автор сборников «Тёмные аллеи», «Листопад».",
-                family: "Отец — Алексей Николаевич Бунин, обедневший дворянин. Мать — Людмила Александровна. Был трижды женат, последняя супруга — Вера Муромцева.",
-                works: ["«Жизнь Арсеньева»", "«Тёмные аллеи»", "«Господин из Сан-Франциско»", "«Антоновские яблоки»", "«Солнечный удар»"],
-                extra: "В эмиграции во Франции продолжал писать о России, оставил дневники.",
-                lipetsk: "Елецкая земля — главный источник вдохновения. Детство в имении Озёрки, учёба в Елецкой гимназии, образы уездной жизни легли в основу автобиографического романа «Жизнь Арсеньева». В Липецкой области действует Бунинский фонд."
-            }
-        },
-        {
-            name: "Михаил Пришвин",
-            years: "1873–1954",
-            badgeText: "Певец русской природы",
-            desc: "Певец русской природы. Родился в имении Хрущёво (ныне Липецкая область).",
-            initials: "МП",
-            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/4/42/Mikhail_Prishvin_%281950%29.jpg",
-            gradient: "linear-gradient(145deg, #2f6b47, #1e3e2c)",
-            fact: "🌿 Работал агрономом, вёл дневники более 50 лет. Любовь к природе сделала его классиком лирической прозы.",
-            quote: "«Чтобы жить, нужно солнце, свобода и маленький цветок.»",
-            fullBio: {
-                childhood: "Родился в имении Хрущёво (Елецкий уезд) в купеческой семье. Учился в Елецкой гимназии, был исключён за конфликт с учителем.",
-                creativity: "Автор лирических путевых очерков, философских дневников, рассказов о природе. Главные книги: «В краю непуганых птиц», «Кладовая солнца», «Календарь природы».",
-                family: "Отец — купец, умер рано, оставив семью в долгах. Мать — Мария Ивановна. Жена — Валерия Лиорко, вторая жена — Екатерина Вальдман.",
-                works: ["«Кладовая солнца»", "«Жень-шень»", "«Лесная капель»", "«Осударева дорога»", "«Глаза земли»"],
-                extra: "Вёл дневник на протяжении почти 50 лет, опубликованный полностью только в XXI веке.",
-                lipetsk: "Родовое имение Хрущёво (Липецкая область) дало будущему писателю первые уроки любви к природе. В Ельце установлена мемориальная доска на здании гимназии."
-            }
-        },
-        {
-            name: "Александр Геращенко",
-            years: "1925–2017",
-            badgeText: "Фронтовик, прозаик",
-            desc: "Фронтовик, Почётный гражданин Липецка. Книги о войне и липецкой деревне.",
-            initials: "АГ",
-            imageUrl: "",
-            gradient: "linear-gradient(145deg, #b13e3e, #6e2828)",
-            fact: "🎖️ Прошёл всю войну, награждён орденом Отечественной войны. Роман «Земляки» — летопись липецкого села.",
-            quote: "«Земля липецкая – моя судьба и песня...»",
-            fullBio: {
-                childhood: "Родился в селе Воронец (Липецкая область). Детство прошло в крестьянской семье, пережил голод и коллективизацию.",
-                creativity: "Автор романов и повестей о войне, жизни деревни. Главная тема — судьба простого человека в исторических катаклизмах. Член Союза писателей СССР.",
-                family: "Отец погиб на фронте. Мать одна поднимала детей. После войны женился, воспитал двоих детей.",
-                works: ["«Земляки»", "«Зори над Чамлыком»", "«Горячие души»", "«Белая берёза»", "«Возвращение»"],
-                extra: "Ветеран Великой Отечественной войны, Почётный гражданин города Липецка.",
-                lipetsk: "Вся жизнь связана с Липецким краем. Работал в липецких газетах, возглавлял областную писательскую организацию. Его книги — энциклопедия жизни липецкой деревни XX века."
-            }
-        },
-        {
-            name: "Владимир Будаков",
-            years: "1930–2015",
-            badgeText: "Поэт, буниновед",
-            desc: "Поэт, основатель Бунинского фонда. Возрождал культурное наследие края.",
-            initials: "ВБ",
-            imageUrl: "",
-            gradient: "linear-gradient(145deg, #3b6ea0, #214263)",
-            fact: "📖 Автор книги «Бунин и Липецкий край», много лет собирал материалы о связях писателя с Ельцом.",
-            quote: "«Слово о родной земле не иссякнет, пока жива наша память.»",
-            fullBio: {
-                childhood: "Родился в селе Казинка (Липецкая область). С детства полюбил литературу, учился в Липецком педагогическом институте.",
-                creativity: "Поэт, лауреат литературных премий. Исследовал жизнь и творчество И.А. Бунина, инициировал создание Бунинского фонда и проведение Бунинских чтений.",
-                family: "Жена — Надежда, поддерживала его в литературных начинаниях. Дети продолжили его дело.",
-                works: ["«Бунин и Липецкий край»", "«Стихи и судьбы»", "«Елецкие тропы»", "«Светлая осень»", "«Слово о родной земле»"],
-                extra: "Заслуженный работник культуры РФ.",
-                lipetsk: "Главный хранитель литературного наследия Липецкого края. Благодаря ему в Липецке и Ельце появились бунинские центры, памятные знаки и ежегодные чтения."
-            }
-        },
-        {
-            name: "Николай Дорошин",
-            years: "1905–1993",
-            badgeText: "Фронтовик, прозаик",
-            desc: "Автор автобиографического романа «Своими глазами». Именем Дорошина названа библиотека в Липецке.",
-            initials: "НД",
-            imageUrl: "",
-            gradient: "linear-gradient(145deg, #9b6d3c, #5a3d1f)",
-            fact: "⭐ Участник Великой Отечественной, его книги пронизаны правдой о войне и послевоенной деревне.",
-            quote: "«Липецкий край – моя боль и радость...»",
-            fullBio: {
-                childhood: "Родился в селе Троекурово (ныне Липецкая область) в крестьянской семье. С юности работал, позже окончил литературные курсы.",
-                creativity: "Прозаик, автор очерков, рассказов и романов о войне и послевоенной деревне. Главное произведение — трилогия «Своими глазами».",
-                family: "Семья многодетная. Во время войны потерял многих близких. После войны жил в Липецке.",
-                works: ["«Своими глазами» (трилогия)", "«Солдаты»", "«Тихая моя родина»", "«Липецкие были»", "«Деревенские повести»"],
-                extra: "Имя Николая Дорошина носит Липецкая областная юношеская библиотека.",
-                lipetsk: "Прожил в Липецке более 40 лет, был одним из основателей Липецкой писательской организации. Его произведения — художественная летопись липецкой земли."
-            }
-        },
-        {
-            name: "Евгений Замятин",
-            years: "1884–1937",
-            badgeText: "Писатель-антиутопист",
-            desc: "Автор романа «Мы». В 1914–1917 годах отбывал ссылку в Липецке, где написал повесть «Уездное».",
-            initials: "ЕЗ",
-            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/9/9f/Kustodiev_Zamyatin.jpg",
-            gradient: "linear-gradient(145deg, #5e3a6b, #2e1a3a)",
-            fact: "📖 Повесть «Уездное», созданная в Липецке, принесла ему всероссийскую известность.",
-            quote: "«Боюсь, что русская литература одна будущность имеет: её прошлое.»",
-            fullBio: {
-                childhood: "Родился в Лебедяни (ныне Липецкая область) в семье священника. Детство провёл в провинциальном городке.",
-                creativity: "Писатель, публицист, киносценарист. Автор романа-антиутопии «Мы», повестей «Уездное», «На куличках».",
-                family: "Отец — священник, мать — пианистка. Был женат на Людмиле Замятиной.",
-                works: ["«Мы»", "«Уездное»", "«На куличках»", "«Островитяне»", "«Ловец человеков»"],
-                extra: "После публикации романа «Мы» подвергся травле в СССР, эмигрировал во Францию.",
-                lipetsk: "Уроженец Лебедяни. В 1914–1917 годах отбывал ссылку в Липецке, написал повесть «Уездное». В Липецке сохранился дом, где он жил. Его имя носят улицы в Липецке и Лебедяни."
-            }
-        },
-        {
-            name: "Константин Паустовский",
-            years: "1892–1968",
-            badgeText: "Мастер лирической прозы",
-            desc: "В 1916–1917 годах работал на металлургическом заводе в Липецке, что отразил в автобиографической «Повести о жизни».",
-            initials: "КП",
-            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/3/30/Paustovsky_1960s.jpg",
-            gradient: "linear-gradient(145deg, #2c6e6e, #1e4747)",
-            fact: "🏭 В Липецке работал санитаром, водителем трамвая, позже — на военном заводе.",
-            quote: "«Любовь к родной стране начинается с любви к природе.»",
-            fullBio: {
-                childhood: "Родился в Москве, много путешествовал. Юность провёл в Киеве.",
-                creativity: "Писатель, автор лирических повестей и рассказов, мастер пейзажной прозы. Создал автобиографическую «Повесть о жизни» (6 книг).",
-                family: "Отец — железнодорожный статистик, мать — из польско-украинской семьи. Был трижды женат.",
-                works: ["«Повесть о жизни» (цикл)", "«Мещёрская сторона»", "«Телеграмма»", "«Золотая роза»", "«Кара-Бугаз»"],
-                extra: "Его книги переведены на многие языки, номинировался на Нобелевскую премию.",
-                lipetsk: "В 1916–1917 годах жил и работал в Липецке: санитаром, водителем трамвая, затем на металлургическом заводе. Воспоминания об этом вошли в книгу «Беспокойная юность». В Липецке установлен памятный знак."
-            }
-        },
-        {
-            name: "Леонид Афанасьев",
-            years: "1930–2005",
-            badgeText: "Поэт-фронтовик",
-            desc: "Липецкий поэт, участник Великой Отечественной войны. Автор стихов о родном крае.",
-            initials: "ЛА",
-            imageUrl: "",
-            gradient: "linear-gradient(145deg, #b5651e, #7a3e12)",
-            fact: "✍️ Более 40 лет руководил липецким литературным объединением.",
-            quote: "«Липецк мой, я твой солдат и вечный житель...»",
-            fullBio: {
-                childhood: "Родился в селе Кривополянье (ныне Липецкая область). С детства писал стихи.",
-                creativity: "Поэт-лирик, автор более 20 поэтических сборников. Стихи отличаются искренностью, любовью к малой родине.",
-                family: "Семья крестьянская. Жена — педагог, дети продолжили литературные традиции.",
-                works: ["«Стихи о Липецке»", "«Память»", "«Перезвоны»", "«Отчий дом»", "«Солдатские звёзды»"],
-                extra: "Лауреат премии имени И.А. Бунина. Его именем названа библиотека в Липецке.",
-                lipetsk: "Один из самых известных липецких поэтов. Всю жизнь прожил в Липецке, возглавлял областное литературное объединение. Его стихи — поэтический портрет Липецка."
-            }
-        },
-        {
-            name: "Александр Пушкин",
-            years: "1799–1837",
-            badgeText: "Солнце русской поэзии",
-            desc: "Великий русский поэт. Проезжал через Липецк и Елец, останавливался в Липецке на пути в Болдино.",
-            initials: "АП",
-            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/9/99/Pushkin_Alexander_by_Sokolov_P..jpg",
-            gradient: "linear-gradient(145deg, #2c5f8a, #1c3f5a)",
-            fact: "✍️ В 1830 году, направляясь в Болдино, Пушкин проезжал через Липецк и Елец. В Липецке сохранилось предание о его остановке.",
-            quote: "«Я памятник себе воздвиг нерукотворный...»",
-            fullBio: {
-                childhood: "Родился в Москве, воспитывался няней Ариной Родионовной, учился в Царскосельском лицее.",
-                creativity: "Основоположник современного русского литературного языка. Автор романа в стихах «Евгений Онегин», поэм, сказок, прозы.",
-                family: "Жена — Наталья Гончарова, имел четверых детей. Погиб на дуэли в 1837 году.",
-                works: ["«Евгений Онегин»", "«Капитанская дочка»", "«Пиковая дама»", "«Борис Годунов»", "«Медный всадник»"],
-                extra: "Его произведения переведены на все основные языки мира. Считается создателем современного русского литературного языка.",
-                lipetsk: "В сентябре 1830 года Пушкин проезжал через Липецк и Елец по пути в Болдино. В Липецке сохранилось предание о его визите — поэт останавливался в доме купцов, а местные жители видели его на улицах. В Ельце также установлена мемориальная доска."
-            }
-        },
-        {
-            name: "Лев Толстой",
-            years: "1828–1910",
-            badgeText: "Великий романист",
-            desc: "Классик русской литературы. Неоднократно бывал в Липецке на минеральных водах, а также проездом в имения.",
-            initials: "ЛТ",
-            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/b3/1856._L.N.Tolstoy.jpg",
-            gradient: "linear-gradient(145deg, #6b8e6b, #3a5e3a)",
-            fact: "💧 Лев Толстой лечился на Липецком курорте в 1876, 1882 и 1884 годах. Его впечатления от Липецка отразились в письмах и дневниках.",
-            quote: "«Все счастливые семьи похожи друг на друга, каждая несчастливая семья несчастлива по-своему.»",
-            fullBio: {
-                childhood: "Родился в Ясной Поляне Тульской губернии. Рано потерял родителей, воспитывался родственниками.",
-                creativity: "Автор романов «Война и мир», «Анна Каренина», «Воскресение». Философ, педагог, религиозный мыслитель.",
-                family: "Жена — Софья Берс, имел 13 детей. Поздние годы провёл в аскезе, ушёл из Ясной Поляны и умер на станции Астапово.",
-                works: ["«Война и мир»", "«Анна Каренина»", "«Воскресение»", "«Смерть Ивана Ильича»", "«Хаджи-Мурат»"],
-                extra: "Номинировался на Нобелевскую премию, но отказался. Его влияние на мировую литературу огромно.",
-                lipetsk: "Лев Толстой посещал Липецк в 1876, 1882 и 1884 годах для лечения на минеральных водах. Он высоко оценил липецкий курорт, упоминал о нём в переписке. В Липецке установлен памятный знак в честь визита писателя. Также он проезжал через Елец, о чём есть записи в дневниках."
-            }
-        }
-    ];
-
-    const quotesArray = writersData.map(w => ({ text: w.quote, author: w.name }));
-    quotesArray.push(
-        { text: "«Липецкая земля — край живительных родников и вдохновения для новых поколений поэтов.»", author: "— Из литературного альманаха" },
-        { text: "«Читая их книги, мы путешествуем сквозь время и открываем душу России.»", author: "— Современные читатели" },
-        { text: "«Липецк в литературе — это не только география, но и духовная родина многих талантов.»", author: "— Краеведческий клуб" }
-    );
-
-    function updateQuote() {
-        const randomIndex = Math.floor(Math.random() * quotesArray.length);
-        const quote = quotesArray[randomIndex];
-        document.getElementById("dynamicQuote").innerHTML = `❝ ${quote.text} ❞`;
-        document.getElementById("quoteAuthor").innerHTML = `— ${quote.author}`;
-    }
-
-    document.getElementById("newQuoteBtn").addEventListener("click", updateQuote);
-
-    const gridContainer = document.getElementById("writersGrid");
-    writersData.forEach((writer, idx) => {
-        const card = document.createElement("div");
-        card.className = "writer-card";
-        card.style.setProperty("--order", idx);
-
-        const avatarDiv = document.createElement("div");
-        avatarDiv.className = "avatar";
-        if (writer.imageUrl) {
-            avatarDiv.style.backgroundImage = `url('${writer.imageUrl}')`;
-            avatarDiv.style.backgroundSize = "cover";
-            avatarDiv.style.backgroundPosition = "center";
-            avatarDiv.style.backgroundColor = "transparent";
-            avatarDiv.onerror = function() {
-                this.style.backgroundImage = "none";
-                this.style.background = writer.gradient;
-                this.textContent = writer.initials;
-                this.style.display = "flex";
-                this.style.alignItems = "center";
-                this.style.justifyContent = "center";
-            };
-        } else {
-            avatarDiv.style.background = writer.gradient;
-            avatarDiv.textContent = writer.initials;
-            avatarDiv.style.display = "flex";
-            avatarDiv.style.alignItems = "center";
-            avatarDiv.style.justifyContent = "center";
-        }
-
-        const nameDiv = document.createElement("div");
-        nameDiv.className = "writer-name";
-        nameDiv.textContent = writer.name;
-
-        const yearsDiv = document.createElement("div");
-        yearsDiv.className = "writer-years";
-        yearsDiv.innerHTML = `<span><i class="far fa-calendar-alt"></i> ${writer.years}</span> <span class="badge"><i class="fas fa-star"></i> ${writer.badgeText}</span>`;
-
-        const descDiv = document.createElement("div");
-        descDiv.className = "desc";
-        descDiv.textContent = writer.desc;
-
-        const btnGroup = document.createElement("div");
-        btnGroup.className = "card-buttons";
-
-        const factBtn = document.createElement("button");
-        factBtn.className = "fact-btn";
-        factBtn.innerHTML = '<i class="fas fa-star-of-life"></i> Факт';
-        factBtn.addEventListener("click", () => {
-            alert(`✨ ИНТЕРЕСНЫЙ ФАКТ ✨\n\n${writer.fact}`);
-        });
-
-        const bioBtn = document.createElement("button");
-        bioBtn.className = "bio-btn";
-        bioBtn.innerHTML = '<i class="fas fa-book"></i> Узнать больше';
-        bioBtn.addEventListener("click", () => {
-            openModal(writer);
-        });
-
-        btnGroup.appendChild(factBtn);
-        btnGroup.appendChild(bioBtn);
-
-        card.appendChild(avatarDiv);
-        card.appendChild(nameDiv);
-        card.appendChild(yearsDiv);
-        card.appendChild(descDiv);
-        card.appendChild(btnGroup);
-
-        gridContainer.appendChild(card);
-    });
-
-    const modal = document.getElementById("authorModal");
-    const modalDynamic = document.getElementById("modalDynamic");
-    const closeModalBtn = document.getElementById("closeModalBtn");
-
-    function openModal(writer) {
-        const bio = writer.fullBio;
-        const worksList = bio.works.map(work => `<li><i class="fas fa-book-open"></i> ${work}</li>`).join('');
-        modalDynamic.innerHTML = `
-            <div class="modal-title">${writer.name}</div>
-            <div class="modal-sub">${writer.years} • ${writer.badgeText}</div>
-            <div class="modal-section">
-                <h3><i class="fas fa-child"></i> Детство и юность</h3>
-                <p>${bio.childhood}</p>
-            </div>
-            <div class="modal-section">
-                <h3><i class="fas fa-feather-alt"></i> Творчество</h3>
-                <p>${bio.creativity}</p>
-            </div>
-            <div class="modal-section">
-                <h3><i class="fas fa-users"></i> Семья</h3>
-                <p>${bio.family}</p>
-            </div>
-            <div class="modal-section">
-                <h3><i class="fas fa-list"></i> Основные произведения</h3>
-                <ul>${worksList}</ul>
-            </div>
-            <div class="modal-section">
-                <h3><i class="fas fa-gem"></i> Интересно знать</h3>
-                <p>${bio.extra}</p>
-            </div>
-            <div class="modal-section">
-                <h3><i class="fas fa-map-marker-alt"></i> Связь с Липецким краем</h3>
-                <p>${bio.lipetsk}</p>
-            </div>
-        `;
-        modal.classList.add("active");
-        document.body.style.overflow = "hidden";
-    }
-
-    function closeModal() {
-        modal.classList.remove("active");
-        document.body.style.overflow = "";
-    }
-
-    closeModalBtn.addEventListener("click", closeModal);
-    modal.addEventListener("click", (e) => {
-        if (e.target === modal) closeModal();
-    });
-    document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && modal.classList.contains("active")) closeModal();
-    });
-
-    window.addEventListener("load", updateQuote);
-</script>
+<script src="assets/js/main.js" defer></script>
 </body>
 </html>
